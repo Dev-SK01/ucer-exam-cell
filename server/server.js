@@ -92,8 +92,8 @@ app.post('/ExamDates', upload.array('ExamDates'), async (req, res) => {
 
 
 //api port for student detail data
-app.listen(process.env.X_ZOHO_CATALYST_LISTEN_PORT || 9000, () => {
-  console.log(`Server is running on port http://localhost:${process.env.X_ZOHO_CATALYST_LISTEN_PORT}`);
+app.listen(9000, () => {
+  console.log(`Server is running on port http://localhost:9000`);
 });
 
 
