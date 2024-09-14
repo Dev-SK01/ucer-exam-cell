@@ -22,6 +22,7 @@ const Results = ({ resultStudentData }) => {
                 <th>Register Number</th>
                 <th>Name</th>
                 <th>Department</th>
+                <th>Exam</th>
                 <th>Regulation</th>
               </tr>
             </thead>
@@ -33,11 +34,13 @@ const Results = ({ resultStudentData }) => {
                     <td>{resultData.registerNumber}</td>
                     <td>{resultData.firstName + "  " + resultData.lastName}</td>
                     <td>{resultData.department}</td>
+                    <td>{resultData.exam}</td>
                     <td>{resultData.regulation}</td>
                   </tr>
                 ))
               ) : (
                 <tr key="001">
+                  <td>Students Not Found !</td>
                   <td>Students Not Found !</td>
                   <td>Students Not Found !</td>
                   <td>Students Not Found !</td>

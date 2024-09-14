@@ -68,8 +68,8 @@ async function constructExamDatesFromPDF(pdf) {
         // }
         //time_table.push(TimeTable);       
     }
-    dates_object['F.N']=Forenoon_exam
-    dates_object['A.N']=afternoon_exam
+    dates_object['foreNoon']=Forenoon_exam
+    dates_object['afterNoon']=afternoon_exam
     return dates_object;
     // fs.writeFile(
     //     path.join(__dirname,"output_files","examDates.json"),

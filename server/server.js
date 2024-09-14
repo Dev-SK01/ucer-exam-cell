@@ -12,8 +12,8 @@ const upload = multer({storage: bufferStorage });
 //this is used to allows the given orgin to fetch data
 const cors = require('cors');
 const corsOptions = {
-  origin: 'http://localhost:5173',
-  methods: 'GET,POST,PUT,DELETE',
+  origin: 'https://ucer.web.app',
+  methods: 'GET,POST',
 };
 
 // Apply the CORS middleware with the options

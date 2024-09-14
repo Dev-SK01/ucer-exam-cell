@@ -21,6 +21,7 @@ const Exampdf = ({
           name="exampdf"
           id="exampdf"
           accept=".pdf"
+          multiple={true}
           onChange={(e) => setFile(e.target.files)}
         />
         <button

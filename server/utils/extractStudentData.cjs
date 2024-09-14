@@ -32,7 +32,7 @@ async function constructStudentDataFromPDF(pdf) {
                 // this is for department
                 department = pdf.Pages[j].Texts[i + 1].R[0].T;
             } else if (pdf.Pages[j].Texts[i].R[0].T.lastIndexOf("Title") !== -1) {
-                // this is for index
+                // this is for getting index for get the students subjects
                 index = i + 1;
             }
         }
