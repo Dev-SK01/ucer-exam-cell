@@ -6,7 +6,7 @@ const Results = ({ resultStudentData }) => {
   return (
     <>
       <section className="container" id="resRef">
-        <p style={{ fontWeight: "bolder" }}>
+        <p style={{ fontWeight: "bolder",fontSize:'1.3rem',color:'green'}}>
           Total Students : {resultStudentData.length}
         </p>
         <section className="results-container" id="pdf-content">
@@ -34,7 +34,7 @@ const Results = ({ resultStudentData }) => {
                     <td>{resultData.registerNumber}</td>
                     <td>{resultData.firstName + "  " + resultData.lastName}</td>
                     <td>{resultData.department}</td>
-                    <td>{resultData.exam}</td>
+                    <td style={{color:'blue'}}>{resultData.exam}</td>
                     <td>{resultData.regulation}</td>
                   </tr>
                 ))

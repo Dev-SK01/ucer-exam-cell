@@ -164,8 +164,23 @@ section {
     top: 0;
     left: 0;
     z-index: -10;
+    overflow: hidden;
 }
 canvas{
     height: 100vh !important;
     width: 100vw !important;
+    overflow: hidden;
+}
+
+.session{
+    position: absolute;
+    margin-top: 1rem;
+    margin-left: -3.5rem;
+}
+.session > span{
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+.session > input[type='checkbox']{
+  margin-left: 1rem;
 }

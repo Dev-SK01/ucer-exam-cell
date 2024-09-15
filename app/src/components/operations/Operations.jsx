@@ -16,7 +16,11 @@ const Operations = ({
   studentStorage,
   examStorage,
   setStudentstorage,
-  setExamStorage
+  setExamStorage,
+  handleSession,
+  isForeNoon,
+  isAfterNoon,
+  handleExamHallInput,
 }) => {
   return (
     <section className="container main-menu">
@@ -40,13 +44,21 @@ const Operations = ({
       </div>
       <div className="center-container">
         <Downloadpdf />
-        <Deletedata setStudentstorage={setStudentstorage}
-        setExamStorage={setExamStorage} />
+        <Deletedata
+          setStudentstorage={setStudentstorage}
+          setExamStorage={setExamStorage}
+          handleSession={handleSession}
+          isAfterNoon={isAfterNoon}
+          isForeNoon={isForeNoon}
+        />
       </div>
       <div className="right-container">
         <Search
           handleInputDate={handleInputDate}
           searchExamStudents={searchExamStudents}
+          isAfterNoon={isAfterNoon}
+          isForeNoon={isForeNoon}
+          handleExamHallInput={handleExamHallInput}
         />
       </div>
     </section>

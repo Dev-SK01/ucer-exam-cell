@@ -18,6 +18,10 @@ const App = () => {
     isUploading,
     Error,
     isLoading,
+    handleSession,
+    isForeNoon,
+    isAfterNoon,
+    handleExamHallInput,
   } = useContext(DataContext);
 
   return (
@@ -35,6 +39,10 @@ const App = () => {
         examStorage={examStorage}
         setStudentstorage={setStudentstorage}
         setExamStorage={setExamStorage}
+        handleSession={handleSession}
+        isAfterNoon={isAfterNoon}
+        isForeNoon={isForeNoon}
+        handleExamHallInput={handleExamHallInput}
       />
       <Results resultStudentData={resultStudentData} />
     </>

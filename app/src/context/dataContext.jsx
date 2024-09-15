@@ -1,14 +1,15 @@
 import React, { createContext, useEffect, useState } from "react";
 import { MyLocalStorage } from "../db/indexedDB";
 
-const DataContext = createContext({});  
+const DataContext = createContext({});
+
 export const DataProvider = ({ children }) => {
   const [date, setDate] = useState("");
   const studentLocalStorage = new MyLocalStorage();
   const examDateLocalStorage = new MyLocalStorage();
   const [studentStorage, setStudentstorage] = useState([]);
   const [examStorage, setExamStorage] = useState({});
-  const [examDates, setExamDates] = useState(() => examStorage || []);
+  const [examDates, setExamDates] = useState(() => examStorage || {});
   const [resultStudentData, setResultStudentData] = useState([
     {
       department: "Select Date",
@@ -24,11 +25,13 @@ export const DataProvider = ({ children }) => {
   const [isUploading, setisUploading] = useState(false);
   const [Error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isForeNoon, setForeNoon] = useState(false);
+  const [isAfterNoon, setAfterNoon] = useState(false);
+  const [examHall, setExamHall] = useState([]);
   const localostURL = "http://localhost:9000/";
   const productionURL =
     "https://ucer-backend-50021988656.development.catalystappsail.in/";
 
-  // for while loading the app searching the students if the student have exam
   useEffect(() => {
     // while loading the app getting the data from indexed db and store in state variable
     setIsLoading(true);
@@ -41,6 +44,7 @@ export const DataProvider = ({ children }) => {
     });
     setTimeout(() => setIsLoading(false), 2500);
   }, []);
+
   const handleInputDate = () => {
     try {
       const __month = new Date(document.getElementById("date").value)
@@ -66,18 +70,39 @@ export const DataProvider = ({ children }) => {
     }
   };
 
-  const searchExamStudents = () => {
-    console.log(examStorage.foreNoon[date])
+  const searchExamStudents = (isForeNoon, isAfterNoon) => {
     try {
       //filtering the exam students
       const __mappedStudentData = studentStorage.filter((data) => {
         const __subjectsArr = data.subjects;
         for (let i = 0; i < __subjectsArr.length; i++) {
-          //checking the student have exam on the date or not
-          if (examStorage.foreNoon[date].includes(__subjectsArr[i])) {
-            data.exam = __subjectsArr[i];
-            console.log(data)
-            return data;
+          // filtering foreNoon exam students
+          if (isForeNoon) {
+            if (examStorage?.foreNoon[date]?.includes(__subjectsArr[i])) {
+              // adding exam to the student data
+              data.exam = __subjectsArr[i];
+              setForeNoon(false);
+              return data;
+            }
+          } // Filtering  afterNoon  exam students
+          else if (isAfterNoon) {
+            if (examStorage?.afterNoon[date]?.includes(__subjectsArr[i])) {
+              // adding exam to the student data
+              data.exam = __subjectsArr[i];
+              setAfterNoon(false);
+              return data;
+            }
+          }
+          //filtering total exam students
+          else {
+            if (
+              examStorage?.foreNoon[date].includes(__subjectsArr[i]) ||
+              examStorage?.afterNoon[date].includes(__subjectsArr[i])
+            ) {
+              // adding exam to the student data
+              data.exam = __subjectsArr[i];
+              return data;
+            }
           }
         }
       });
@@ -85,6 +110,7 @@ export const DataProvider = ({ children }) => {
       setResultStudentData(__mappedStudentData);
     } catch (err) {
       console.log(err.message);
+      // if error occcurs setting the error message
       setResultStudentData([
         {
           department: "No Exam Today",
@@ -144,11 +170,34 @@ export const DataProvider = ({ children }) => {
     }, 2000);
   };
 
+  // handling session selection for search
+  const handleSession = (e) => {
+    if (e.target.nextElementSibling.innerText == "F.N") {
+      setForeNoon(e.target.checked);
+    } else if (e.target.nextElementSibling.innerText == "A.N") {
+      setAfterNoon(e.target.checked);
+    }
+    // console.log(isAfterNoon,isForeNoon);
+  };
+
+  const handleExamHallInput = (e) => {
+    try {
+      const hallList = e.target.value.toUpperCase().split(",");
+      if (hallList.length == 1) {
+        alert("Seperate Hall By Comma Separated values!");
+      } else {
+        setExamHall(hallList);
+      }
+    } catch (err) {
+      alert(err.message);
+    }
+  };
   // logs for the reference
   console.log(resultStudentData);
   console.log(examDates);
+  console.log(examHall);
   console.log("student Data :", studentStorage);
-  console.log("ExamDates Data :", examStorage.foreNoon);
+  console.log("ExamDates Data :", examStorage);
 
   return (
     <DataContext.Provider
@@ -176,6 +225,10 @@ export const DataProvider = ({ children }) => {
         setError,
         isLoading,
         setIsLoading,
+        handleSession,
+        isForeNoon,
+        isAfterNoon,
+        handleExamHallInput,
       }}
     >
       {children}

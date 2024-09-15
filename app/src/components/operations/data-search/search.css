@@ -3,6 +3,7 @@
     justify-content: space-around;
     position: relative;
     cursor: pointer;
+    margin-top: 1.5rem;
 }
 
 input[type="date"]{
@@ -17,8 +18,30 @@ input[type="date"]{
     margin-left: -25px;
     cursor: pointer;
 }
+input[type="text"]{
+    padding-block: 10px;
+    width: 19rem;
+    font-family: Inria Serif;
+    color: black;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    outline: none;
+    border-radius: 15px;
+    margin-left: -25px;
+    cursor: pointer;
+    /* border: 1px black solid; */
+    background-color: #e4e4e4;
+}
 input[type="date"]:hover{
     border: 2px green solid;
+}
+.hall-input > p{
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    margin-left: -25px;
 }
 ::-webkit-calendar-picker-indicator{
     background-image: url('../../../assets/Calendar.svg');
