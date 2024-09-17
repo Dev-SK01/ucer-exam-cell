@@ -1,6 +1,6 @@
 function Student_Sheduling(arrays){
     let new_arr= []
-    console.log("pk",arrays);
+    console.log("un_shuffled_array",arrays);
     //let arrays=[[1,2,3,4,5],[6,7,8,9],[10,11,12],[13,14],[22]]
     let first_element=0
     let arr1=arrays[0];
@@ -79,7 +79,7 @@ function Student_Sheduling(arrays){
             }
         }
     }
-    console.log('lp',new_arr);
+    console.log('shuffled_array',new_arr);
     return new_arr;
 
 }
