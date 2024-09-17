@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import "./search.css";
 import searchBtn from "../../../assets/Search.svg";
 const Search = ({ handleInputDate, searchExamStudents,isForeNoon,isAfterNoon,handleExamHallInput }) => {
+  const [Halllist,setHalllist]=useState([]);
   return (
     <>
       <div className="date-selection">
@@ -25,8 +26,9 @@ const Search = ({ handleInputDate, searchExamStudents,isForeNoon,isAfterNoon,han
           type="text"
           id="hall"
           placeholder="312B1 , 312B2 , 312B3 , 312B4"
-          onChange={(e)=>{handleExamHallInput(e)}}
+          onChange={(e)=>{setHalllist(e.target.value.toUpperCase().split(","))}}
         />
+        <button onClick={()=>{handleExamHallInput(Halllist)}}>Allocate</button>
       </div>
     </>
   );
