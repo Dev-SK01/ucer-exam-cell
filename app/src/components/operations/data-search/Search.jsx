@@ -1,8 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import "./search.css";
 import searchBtn from "../../../assets/Search.svg";
-const Search = ({ handleInputDate, searchExamStudents,isForeNoon,isAfterNoon,handleExamHallInput }) => {
-  const [Halllist,setHalllist]=useState([]);
+
+const Search = ({
+  handleInputDate,
+  searchExamStudents,
+  isForeNoon,
+  isAfterNoon,
+  handleExamHallInput,
+}) => {
+
   return (
     <>
       <div className="date-selection">
@@ -14,7 +21,10 @@ const Search = ({ handleInputDate, searchExamStudents,isForeNoon,isAfterNoon,han
           onChange={() => handleInputDate()}
         />
 
-        <span className="search" onClick={() => searchExamStudents(isForeNoon ,isAfterNoon)}>
+        <span
+          className="search"
+          onClick={() => searchExamStudents(isForeNoon,isAfterNoon)}
+        >
           <a href="#resRef">
             <img src={searchBtn} alt="search" />
           </a>
@@ -26,9 +36,8 @@ const Search = ({ handleInputDate, searchExamStudents,isForeNoon,isAfterNoon,han
           type="text"
           id="hall"
           placeholder="312B1 , 312B2 , 312B3 , 312B4"
-          onChange={(e)=>{setHalllist(e.target.value.toUpperCase().split(","))}}
+          onChange={(e) => handleExamHallInput(e)}
         />
-        <button onClick={()=>{handleExamHallInput(Halllist)}}>Allocate</button>
       </div>
     </>
   );

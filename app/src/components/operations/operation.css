@@ -175,7 +175,8 @@ canvas{
 .session{
     position: absolute;
     margin-top: 1rem;
-    margin-left: -3.5rem;
+    margin-left: -5rem;
+    cursor: pointer;
 }
 .session > span{
     font-size: 1.3rem;
@@ -183,4 +184,18 @@ canvas{
 }
 .session > input[type='checkbox']{
   margin-left: 1rem;
+}
+
+.allocate > a {
+    text-decoration: none;
+    color:black;
+}
+
+.allocate {
+    padding-block: .3rem;
+    padding-inline: 1rem;
+    background-color:#D9D9D9;
+    border-radius: 10px;
+    margin-left: 1rem;
+    cursor: pointer;
 }

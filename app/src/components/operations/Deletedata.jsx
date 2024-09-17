@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./operation.css";
 import deleteBtn from "../../assets/Trash.svg";
 import { MyLocalStorage } from "../../db/indexedDB";
+import DataContext from "../../context/dataContext";
+
 const Deletedata = ({
   setStudentstorage,
   setExamStorage,
@@ -9,6 +11,8 @@ const Deletedata = ({
   isForeNoon,
   isAfterNoon,
 }) => {
+  const { allocateExamHalls, resultStudentData, examHall, setAllocatedData } =
+    useContext(DataContext);
   const deleteIndexedDB = new MyLocalStorage();
   const deleteData = () => {
     if (confirm("Are sure to Clear Data ?")) {
@@ -38,6 +42,14 @@ const Deletedata = ({
         />
         <span>A.N</span>
         <input type="checkbox" defaultChecked={true} /> <span>ALL</span>
+        <span
+          className="allocate"
+          onClick={() =>
+            allocateExamHalls(examHall, resultStudentData, setAllocatedData)
+          }
+        >
+          <a href="#allocation">Allocate</a>
+        </span>
       </div>
     </>
   );

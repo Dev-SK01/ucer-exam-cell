@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import { MyLocalStorage } from "../db/indexedDB";
-import {Student_Sheduling} from "../db/Student_sheduling";
+import allocateExamHalls from "../utils/allocateExamHalls";
 const DataContext = createContext({});
 
 export const DataProvider = ({ children }) => {
@@ -28,14 +28,11 @@ export const DataProvider = ({ children }) => {
   const [isForeNoon, setForeNoon] = useState(false);
   const [isAfterNoon, setAfterNoon] = useState(false);
   const [examHall, setExamHall] = useState([]);
+  const [allocatedData, setAllocatedData] = useState([]);
   const localostURL = "http://localhost:9000/";
   const productionURL =
     "https://ucer-backend-50021988656.development.catalystappsail.in/";
-  const [Student_CSE,setStudent_CSE]=useState([1,2,3,4,5]);
-  const [Student_ECE,setStudent_ECE]=useState([6,7,8,9]);
-  const [Student_EEE,setStudent_EEE]=useState([10,11,12]);
-  const [Student_MECH,setStudent_MECH]=useState([13,14,15,16,17,18,19,20,21,22,23,24,25]);
-  const [Student_civil,setStudent_civil]=useState([26]);
+
   useEffect(() => {
     // while loading the app getting the data from indexed db and store in state variable
     setIsLoading(true);
@@ -109,29 +106,42 @@ export const DataProvider = ({ children }) => {
             }
           }
         }
-        
       });
       // setting the examed students for results
       setResultStudentData(__mappedStudentData);
       //spliting dept into arrays
-        for(let j=0;j<__mappedStudentData.length;j++) {
-          if (__mappedStudentData[j].department ==='CSE'){
-            setStudent_CSE(Student_CSE=>[...Student_CSE,__mappedStudentData[j]])
-          }
-          if (__mappedStudentData[j].department ==='ECE'){
-            setStudent_ECE(Student_ECE=>[...Student_ECE,__mappedStudentData[j]])
-          }
-          if (__mappedStudentData[j].department ==='EEE'){
-            setStudent_EEE(Student_EEE=>[...Student_EEE,__mappedStudentData[j]])
-          }
-          if (__mappedStudentData[j].department ==='MECH'){
-            setStudent_MECH(Student_MECH=>[...Student_MECH,__mappedStudentData[j]])
-          }
-          if (__mappedStudentData[j].department ==='Civil'){
-            setStudent_civil(Student_civil=>[...Student_civil,__mappedStudentData[j]])
-          }
-        }
-        
+      // for (let j = 0; j < __mappedStudentData.length; j++) {
+      //   if (__mappedStudentData[j].department === "CSE") {
+      //     setStudent_CSE((Student_CSE) => [
+      //       ...Student_CSE,
+      //       __mappedStudentData[j],
+      //     ]);
+      //   }
+      //   if (__mappedStudentData[j].department === "ECE") {
+      //     setStudent_ECE((Student_ECE) => [
+      //       ...Student_ECE,
+      //       __mappedStudentData[j],
+      //     ]);
+      //   }
+      //   if (__mappedStudentData[j].department === "EEE") {
+      //     setStudent_EEE((Student_EEE) => [
+      //       ...Student_EEE,
+      //       __mappedStudentData[j],
+      //     ]);
+      //   }
+      //   if (__mappedStudentData[j].department === "MECH") {
+      //     setStudent_MECH((Student_MECH) => [
+      //       ...Student_MECH,
+      //       __mappedStudentData[j],
+      //     ]);
+      //   }
+      //   if (__mappedStudentData[j].department === "Civil") {
+      //     setStudent_civil((Student_civil) => [
+      //       ...Student_civil,
+      //       __mappedStudentData[j],
+      //     ]);
+      //   }
+      // }
     } catch (err) {
       console.log(err.message);
       // if error occcurs setting the error message
@@ -147,6 +157,7 @@ export const DataProvider = ({ children }) => {
       ]);
     }
   };
+
   // Handle form submission
   const handlePdfUpload = (route) => {
     // delaying hte response time from the server
@@ -203,28 +214,39 @@ export const DataProvider = ({ children }) => {
     // console.log(isAfterNoon,isForeNoon);
   };
 
-  const handleExamHallInput = (Halllist) => {
+  const handleExamHallInput = (e) => {
     try {
-        const arr = [Student_CSE, Student_ECE, Student_EEE, Student_MECH, Student_civil];
-        const shuffled_student = Student_Sheduling(arr);
-        let j=0
-        let hall_num;
-        for(let i=0;i<shuffled_student.length;i=i+25){
-          hall_num=Halllist[j];
-          setExamHall(examHall=>[...examHall,{[hall_num]:shuffled_student.slice(i,i+25)}]);
-          j=j+1;
-        }
+      const hallList = e.target.value.toUpperCase().split(",");
+      if (hallList.length == 1) {
+        alert("Seperate Hall By Comma Separated values!");
+      } else {
+        setExamHall(hallList);
+      }
     } catch (err) {
       alert(err.message);
     }
+    // try {
+    //     const arr = [Student_CSE, Student_ECE, Student_EEE, Student_MECH, Student_civil];
+    //     const shuffled_student = Student_Sheduling(arr);
+    //     let j=0
+    //     let hall_num;
+    //     for(let i=0;i<shuffled_student.length;i=i+25){
+    //       hall_num=Halllist[j];
+    //       setExamHall(examHall=>[...examHall,{[hall_num]:shuffled_student.slice(i,i+25)}]);
+    //       j=j+1;
+    //     }
+    // } catch (err) {
+    //   alert(err.message);
+    // }
   };
-  console.log(examHall);
   // logs for the reference
   // console.log(resultStudentData);
   // console.log(examDates);
   // console.log(examHall);
   //console.log("student Data :", studentStorage);
   // console.log("ExamDates Data :", examStorage);
+  console.log(allocatedData);
+  
 
   return (
     <DataContext.Provider
@@ -255,7 +277,11 @@ export const DataProvider = ({ children }) => {
         handleSession,
         isForeNoon,
         isAfterNoon,
+        examHall,
         handleExamHallInput,
+        allocateExamHalls,
+        allocatedData,
+        setAllocatedData,
       }}
     >
       {children}
