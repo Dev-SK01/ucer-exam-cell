@@ -34,8 +34,8 @@ export const DataProvider = ({ children }) => {
   const [Student_CSE,setStudent_CSE]=useState([1,2,3,4,5]);
   const [Student_ECE,setStudent_ECE]=useState([6,7,8,9]);
   const [Student_EEE,setStudent_EEE]=useState([10,11,12]);
-  const [Student_MECH,setStudent_MECH]=useState([13,14]);
-  const [Student_civil,setStudent_civil]=useState([22]);
+  const [Student_MECH,setStudent_MECH]=useState([13,14,15,16,17,18,19,20,21,22,23,24,25]);
+  const [Student_civil,setStudent_civil]=useState([26]);
   useEffect(() => {
     // while loading the app getting the data from indexed db and store in state variable
     setIsLoading(true);
@@ -112,7 +112,7 @@ export const DataProvider = ({ children }) => {
         
       });
       // setting the examed students for results
-      //setResultStudentData(__mappedStudentData);
+      setResultStudentData(__mappedStudentData);
       //spliting dept into arrays
         for(let j=0;j<__mappedStudentData.length;j++) {
           if (__mappedStudentData[j].department ==='CSE'){
