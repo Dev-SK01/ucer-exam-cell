@@ -10,7 +10,17 @@ export const DataProvider = ({ children }) => {
   const [studentStorage, setStudentstorage] = useState([]);
   const [examStorage, setExamStorage] = useState({});
   const [examDates, setExamDates] = useState(() => examStorage || {});
-  const [resultStudentData, setResultStudentData] = useState([]);
+  const [resultStudentData, setResultStudentData] = useState([
+    {
+      department: "Select Date",
+      firstName: "Select ",
+      lastName: "Date",
+      registerNumber: "Select Date",
+      id: "YYY",
+      regulation: "Select Date",
+      exam: "Select Date",
+    },
+  ]);
   const [files, setFile] = useState([]);
   const [isUploading, setisUploading] = useState(false);
   const [Error, setError] = useState(false);
@@ -24,8 +34,8 @@ export const DataProvider = ({ children }) => {
   const [Student_CSE,setStudent_CSE]=useState([1,2,3,4,5]);
   const [Student_ECE,setStudent_ECE]=useState([6,7,8,9]);
   const [Student_EEE,setStudent_EEE]=useState([10,11,12]);
-  const [Student_MECH,setStudent_MECH]=useState([13,14,15,16,17,18,19,20,21,22,23]);
-  const [Student_civil,setStudent_civil]=useState([24]);
+  const [Student_MECH,setStudent_MECH]=useState([13,14]);
+  const [Student_civil,setStudent_civil]=useState([22]);
   useEffect(() => {
     // while loading the app getting the data from indexed db and store in state variable
     setIsLoading(true);
@@ -201,15 +211,16 @@ export const DataProvider = ({ children }) => {
         let hall_num;
         for(let i=0;i<shuffled_student.length;i=i+25){
           hall_num=Halllist[j];
-          setResultStudentData(resultStudentData=>[...resultStudentData,{[hall_num]:shuffled_student.slice(i,i+25)}]);
+          setExamHall(examHall=>[...examHall,{[hall_num]:shuffled_student.slice(i,i+25)}]);
           j=j+1;
         }
     } catch (err) {
       alert(err.message);
     }
   };
+  console.log(examHall);
   // logs for the reference
-  console.log(resultStudentData);
+  // console.log(resultStudentData);
   // console.log(examDates);
   // console.log(examHall);
   //console.log("student Data :", studentStorage);
