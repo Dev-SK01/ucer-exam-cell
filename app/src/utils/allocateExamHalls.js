@@ -111,30 +111,30 @@ function filterStudentsByDepartment(studentData) {
     const filteredStudentsData = [];
 
     const CSE = studentData.filter((dataOfStudent) => {
-        if (dataOfStudent.department == "Civil") {
+        if (dataOfStudent.department == "Computer") {
             return dataOfStudent;
         }
     });
     const ECE = studentData.filter((dataOfStudent) => {
-        if (dataOfStudent.department == "Civil") {
+        if (dataOfStudent.department == "Electronics") {
             return dataOfStudent;
         }
     });
     const EEE = studentData.filter((dataOfStudent) => {
-        if (dataOfStudent.department == "Civil") {
+        if (dataOfStudent.department == "Electrical") {
             return dataOfStudent;
         }
     });
     const MECH = studentData.filter((dataOfStudent) => {
-        if (dataOfStudent.department == "Civil") {
+        if (dataOfStudent.department == "Mechanical") {
             return dataOfStudent;
         }
     });
-    const EECS = studentData.filter((dataOfStudent) => {
-        if (dataOfStudent.department == "Civil") {
-            return dataOfStudent;
-        }
-    });
+    // const EECS = studentData.filter((dataOfStudent) => {
+    //     if (dataOfStudent.department == "Civil") {
+    //         return dataOfStudent;
+    //     }
+    // });
     const CIVIL = studentData.filter((dataOfStudent) => {
         if (dataOfStudent.department == "Civil") {
             return dataOfStudent;
@@ -145,7 +145,7 @@ function filterStudentsByDepartment(studentData) {
     filteredStudentsData.push(CSE || []);
     filteredStudentsData.push(EEE || []);
     filteredStudentsData.push(MECH || []);
-    // filteredStudentsData.push(ECE || []);
+    filteredStudentsData.push(ECE || []);
     // filteredStudentsData.push(EECS || []);
     // returning the filter department wise student data [[],[]]
     return filteredStudentsData;

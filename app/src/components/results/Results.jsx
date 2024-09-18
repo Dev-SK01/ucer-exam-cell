@@ -52,11 +52,6 @@ const Results = ({ resultStudentData }) => {
           </table>
         </section>
       </section>
-      <footer className="container">
-        <p>
-          Designed And Developed By Department Of Computer Science & Engineering
-        </p>
-      </footer>
     </>
   );
 };

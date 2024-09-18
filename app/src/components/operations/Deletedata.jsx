@@ -44,9 +44,7 @@ const Deletedata = ({
         <input type="checkbox" defaultChecked={true} /> <span>ALL</span>
         <span
           className="allocate"
-          onClick={() =>
-            allocateExamHalls(examHall, resultStudentData, setAllocatedData)
-          }
+          onClick={() => allocateExamHalls(examHall, resultStudentData, setAllocatedData)}
         >
           <a href="#allocation">Allocate</a>
         </span>

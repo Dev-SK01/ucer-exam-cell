@@ -4,6 +4,7 @@ import Operations from "./components/operations/Operations";
 import Results from "./components/results/Results";
 import Alert from "./components/Alert.jsx";
 import DataContext from "./context/dataContext.jsx";
+import AllocatedStudents from "./components/allocatedStudents/AllocatedStudents.jsx";
 const App = () => {
   const {
     setFile,
@@ -45,6 +46,7 @@ const App = () => {
         handleExamHallInput={handleExamHallInput}
       />
       <Results resultStudentData={resultStudentData} />
+      <AllocatedStudents />
     </>
   );
 };
