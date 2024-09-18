@@ -109,39 +109,6 @@ export const DataProvider = ({ children }) => {
       });
       // setting the examed students for results
       setResultStudentData(__mappedStudentData);
-      //spliting dept into arrays
-      // for (let j = 0; j < __mappedStudentData.length; j++) {
-      //   if (__mappedStudentData[j].department === "CSE") {
-      //     setStudent_CSE((Student_CSE) => [
-      //       ...Student_CSE,
-      //       __mappedStudentData[j],
-      //     ]);
-      //   }
-      //   if (__mappedStudentData[j].department === "ECE") {
-      //     setStudent_ECE((Student_ECE) => [
-      //       ...Student_ECE,
-      //       __mappedStudentData[j],
-      //     ]);
-      //   }
-      //   if (__mappedStudentData[j].department === "EEE") {
-      //     setStudent_EEE((Student_EEE) => [
-      //       ...Student_EEE,
-      //       __mappedStudentData[j],
-      //     ]);
-      //   }
-      //   if (__mappedStudentData[j].department === "MECH") {
-      //     setStudent_MECH((Student_MECH) => [
-      //       ...Student_MECH,
-      //       __mappedStudentData[j],
-      //     ]);
-      //   }
-      //   if (__mappedStudentData[j].department === "Civil") {
-      //     setStudent_civil((Student_civil) => [
-      //       ...Student_civil,
-      //       __mappedStudentData[j],
-      //     ]);
-      //   }
-      // }
     } catch (err) {
       console.log(err.message);
       // if error occcurs setting the error message
@@ -176,7 +143,7 @@ export const DataProvider = ({ children }) => {
           // for display message
           setisUploading(true);
           // Make the POST request
-          const response = await fetch(`${localostURL}${route}`, {
+          const response = await fetch(`${productionURL}${route}`, {
             method: "POST",
             body: formData, // Send FormData with files
           });
