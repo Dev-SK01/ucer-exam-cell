@@ -84,11 +84,11 @@ export default function allocateExamHalls(examHall, studentData, setAllocatedDat
             // constructing the allocated hall by hall number
             let hallAllocatedStudentsData = [];
             // reversing the array for a data construction
-            examHall.reverse();
-            let hallIndex = examHall.length - 1;
+            // examHall.reverse();
+            let hallIndex = 0;
             for (let i = 0; i < shuffledArray.length; i = i + 25) {
                 hallAllocatedStudentsData.push({ [`${examHall[hallIndex]}`]: shuffledArray.slice(i, i + 25) });
-                hallIndex--;
+                hallIndex++;
             }
             // state variable for the alocated student data
             setAllocatedData(hallAllocatedStudentsData);

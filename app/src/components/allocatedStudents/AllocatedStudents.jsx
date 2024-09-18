@@ -1,9 +1,9 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import '../results/results.css'
 import DataContext from '../../context/dataContext'
+import { useEffect } from 'react'
 const AllocatedStudents = () => {
     const {allocatedData,date,isForeNoon,isAfterNoon,examHall} = useContext(DataContext)
-
   return (
     <>
     <section className="container" id="resRef">
@@ -25,6 +25,7 @@ const AllocatedStudents = () => {
                     <th>NAME OF THE CANDIDATE</th>
                     <th>SUBJECT CODE</th>
                   </tr>
+                  {console.log(data)}
                 </thead>
                 <tbody>
                   {/* checking is students  have exam or not */}
@@ -36,7 +37,8 @@ const AllocatedStudents = () => {
                     <td>{student.exam}</td>
                    </tr>
                   ))} */}
-                  {console.log(examHall[1])}
+                  {console.log(examHall[index])}
+                  {data[examHall[index]].map((stu)=>console.log((stu.id)))}
                 </tbody>
               </table>
               ))}
