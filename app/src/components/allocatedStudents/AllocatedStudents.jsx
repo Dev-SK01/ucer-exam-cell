@@ -32,7 +32,6 @@ const AllocatedStudents = () => {
                   <th colSpan={1} className="thead-bg">NAME OF THE CANDIDATE</th>
                   <th colSpan={1} className="thead-bg">SUBJECT CODE</th>
                 </tr>
-                {console.log(data)}
               </thead>
               <tbody key={index}>
                 {/* checking is students  have exam or not */}

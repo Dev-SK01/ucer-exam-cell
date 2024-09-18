@@ -143,7 +143,7 @@ export const DataProvider = ({ children }) => {
           // for display message
           setisUploading(true);
           // Make the POST request
-          const response = await fetch(`${productionURL}${route}`, {
+          const response = await fetch(`${localostURL}${route}`, {
             method: "POST",
             body: formData, // Send FormData with files
           });
@@ -212,7 +212,7 @@ export const DataProvider = ({ children }) => {
   // console.log(examHall);
   //console.log("student Data :", studentStorage);
   // console.log("ExamDates Data :", examStorage);
-  console.log(allocatedData);
+  //console.log(allocatedData);
   
 
   return (

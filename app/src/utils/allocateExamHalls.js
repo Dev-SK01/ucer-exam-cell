@@ -95,7 +95,7 @@ export default function allocateExamHalls(examHall, studentData, setAllocatedDat
             // console.log(studentData);
             // console.log(examHall);
             // console.log(filteredData);
-            // console.log('Shuffled Array :', shuffledArray);
+            //console.log('Shuffled Array :', shuffledArray);
             // console.log(hallAllocatedStudentsData);
         } else {
             alert("Enter Exam Hall's !")
@@ -140,12 +140,22 @@ function filterStudentsByDepartment(studentData) {
             return dataOfStudent;
         }
     });
-    // pushing the filtered data
-    filteredStudentsData.push(CIVIL || []);
-    filteredStudentsData.push(CSE || []);
-    filteredStudentsData.push(EEE || []);
-    filteredStudentsData.push(MECH || []);
-    filteredStudentsData.push(ECE || []);
+    // pushing the filtered data by leaving the empty array   
+    if(CSE.length!=0){
+        filteredStudentsData.push(CSE);
+    }
+    if(ECE.length!=0){
+        filteredStudentsData.push(ECE);
+    }
+    if(EEE.length!=0){
+        filteredStudentsData.push(EEE);
+    }
+    if(MECH.length!=0){
+        filteredStudentsData.push(MECH);
+    }
+    if(CIVIL.length!=0){
+        filteredStudentsData.push(CIVIL);
+    }
     // filteredStudentsData.push(EECS || []);
     // returning the filter department wise student data [[],[]]
     return filteredStudentsData;
