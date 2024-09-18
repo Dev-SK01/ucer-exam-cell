@@ -1,47 +1,52 @@
-import React, { useContext, useState } from 'react'
-import '../results/results.css'
-import DataContext from '../../context/dataContext'
-import { useEffect } from 'react'
+import React, { useContext, useState } from "react";
+import "../results/results.css";
+import DataContext from "../../context/dataContext";
+
 const AllocatedStudents = () => {
-    const {allocatedData,date,isForeNoon,isAfterNoon,examHall} = useContext(DataContext)
+  const { allocatedData, date, examHall ,isForeNoon,isAfterNoon,} = useContext(DataContext);
   return (
     <>
-    <section className="container" id="resRef">
-        
+      <section className="container" id="allocation">
         <section className="results-container" id="pdf-content">
-          { allocatedData.map((data,index) => (
-                <table border="1" id="content" key={index}>
-                <thead style={{ position: "sticky", top: 0 }}>
-                    <tr>
-                        <th>ANNA UNIVERSITY CHENNAI</th>
-                        <th>THEORY EXAMININATION -2024</th>
-                        <th>DATE : {date}</th>
-                        <th>Session :{isForeNoon ? ' F.N' : ' A.N' } </th>
-                        <th>HALL NO : {examHall[index]}</th>
-                    </tr>
-                  <tr>
-                    <th>SEAT NO</th>
-                    <th>REGISTERED NUMBER</th>
-                    <th>NAME OF THE CANDIDATE</th>
-                    <th>SUBJECT CODE</th>
+          {allocatedData.map((data, index) => (
+            <table border="1" id={examHall[index]} key={index} className="allocation">
+              <thead>
+                <tr>
+                  <th colSpan={4} className="thead">ANNA UNIVERSITY CHENNAI</th>
+                </tr>
+                <tr>
+                <th colSpan={4} className="thead">THEORY EXAMININATION - 2024</th>
+                </tr>
+                <tr>
+                <th colSpan={2} className="thead">DATE : {date}</th>
+                <th colSpan={2} className="thead">
+                  Session : { isForeNoon? 'F.N' : isAfterNoon ? 'A.N' : 'F.N | A.N'}
+                </th>
+                </tr>
+                <tr>
+                <th colSpan={4} className="thead">HALL NO : {examHall[index]}</th>
+                </tr>
+                <tr>
+                  <th colSpan={1} className="thead-bg">SEAT NO</th>
+                  <th colSpan={1} className="thead-bg">REGISTERED NUMBER</th>
+                  <th colSpan={1} className="thead-bg">NAME OF THE CANDIDATE</th>
+                  <th colSpan={1} className="thead-bg">SUBJECT CODE</th>
+                </tr>
+                {console.log(data)}
+              </thead>
+              <tbody key={index}>
+                {/* checking is students  have exam or not */}
+                {data[examHall[index]].map((student, index) => (
+                  <tr key={index}>
+                    <td className="tdata" style={{fontWeight:'bolder'}}>{index + 1}</td>
+                    <td colSpan={1} className="tdata">{student.registerNumber}</td>
+                    <td colSpan={1} className="tdata">{`${student.firstName} ${student.lastName}`}</td>
+                    <td className="tdata">{student.exam}</td>
                   </tr>
-                  {console.log(data)}
-                </thead>
-                <tbody>
-                  {/* checking is students  have exam or not */}
-                   {/* {data[index].map((student,index)=>(
-                    <tr>
-                    <td>{index}</td>
-                    <td>{student.registerNumber}</td>
-                    <td>{`${student.firstName} ${student.lastName}`}</td>
-                    <td>{student.exam}</td>
-                   </tr>
-                  ))} */}
-                  {console.log(examHall[index])}
-                  {data[examHall[index]].map((stu)=>console.log((stu.id)))}
-                </tbody>
-              </table>
-              ))}
+                ))}
+              </tbody>
+            </table>
+          ))}
         </section>
       </section>
       <footer className="container">
@@ -50,7 +55,7 @@ const AllocatedStudents = () => {
         </p>
       </footer>
     </>
-  )
-}
+  );
+};
 
-export default AllocatedStudents
+export default AllocatedStudents;

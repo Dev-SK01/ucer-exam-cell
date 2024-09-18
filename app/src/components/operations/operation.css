@@ -175,7 +175,7 @@ canvas{
 .session{
     position: absolute;
     margin-top: 1rem;
-    margin-left: -5rem;
+    margin-left: -7rem;
     cursor: pointer;
 }
 .session > span{
@@ -198,4 +198,7 @@ canvas{
     border-radius: 10px;
     margin-left: 1rem;
     cursor: pointer;
+}
+.allocate:hover{
+    background-color: goldenrod;
 }

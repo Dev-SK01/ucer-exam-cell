@@ -82,7 +82,7 @@ export const DataProvider = ({ children }) => {
             if (examStorage?.foreNoon[date]?.includes(__subjectsArr[i])) {
               // adding exam to the student data
               data.exam = __subjectsArr[i];
-              setForeNoon(false);
+              // setForeNoon(false);
               return data;
             }
           } // Filtering  afterNoon  exam students
@@ -90,7 +90,7 @@ export const DataProvider = ({ children }) => {
             if (examStorage?.afterNoon[date]?.includes(__subjectsArr[i])) {
               // adding exam to the student data
               data.exam = __subjectsArr[i];
-              setAfterNoon(false);
+              // setAfterNoon(false);
               return data;
             }
           }
