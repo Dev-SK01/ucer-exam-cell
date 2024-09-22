@@ -3,6 +3,7 @@ const PDFParser = require('pdf2json');
 const multer = require('multer');
 const { PDFDocument } = require('pdf-lib');
 const constructStudentDataFromPDF = require('./utils/extractStudentData.cjs');
+const constructSubjectName= require('./utils/SubjectNameForSubjectCode.cjs');
 const app = express();
 const constructExamDatesFromPDF = require('./utils/extractExamDates.cjs');
 // Set up multer for handling file uploads || stores data in the Buffer.
@@ -70,10 +71,12 @@ app.post('/ExamDates', upload.array('ExamDates'), async (req, res) => {
       await pdfParser.once('pdfParser_dataReady', async (pdfData) => {
         // Process the PDF data to extract student details
         const datesOfExam = await constructExamDatesFromPDF(pdfData);
+        //SubjectNameForSubjectCode
+        const SubjectName=await constructSubjectName(pdfData);
         // removing the pdfParser_dataReady event
         pdfParser.removeAllListeners();
         //console.log(datesOfExam);
-        return res.status(200).json(datesOfExam);
+        return res.status(200).json({"Exams":datesOfExam,"SubjectName":SubjectName});
       });
       await pdfParser.once('pdfParser_dataError',  (errData) => {
         console.log(errData);

@@ -52,7 +52,7 @@ async function constructStudentDataFromPDF(pdf) {
             subjects: subjects,
         }
 
-        // TODO  console.log(individualStudentData);
+        //console.log(individualStudentData);
         // pushing the constructed student data into studentData
         studentData.push(individualStudentData);
         // console.log(pdf.Pages[j].Texts[index + numberOfSubjects].R[0].T);
