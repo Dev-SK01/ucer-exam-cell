@@ -32,7 +32,7 @@ const Results = ({ resultStudentData }) => {
                 resultStudentData.map((resultData) => (
                   <tr key={resultData.id}>
                     <td className="td">{resultData.registerNumber}</td>
-                    <td className="td">{resultData.firstName + "  " + resultData.lastName}</td>
+                    <td className="td">{resultData.firstName + "  " + decodeURI(resultData.lastName)}</td>
                     <td className="td">{resultData.department}</td>
                     <td style={{color:'blue'}} className="td">{resultData.exam}</td>
                     <td className="td">{resultData.regulation}</td>

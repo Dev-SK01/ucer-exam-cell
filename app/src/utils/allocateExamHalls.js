@@ -87,7 +87,14 @@ export default function allocateExamHalls(examHall, studentData, setAllocatedDat
             // examHall.reverse();
             let hallIndex = 0;
             for (let i = 0; i < shuffledArray.length; i = i + 25) {
-                hallAllocatedStudentsData.push({ [`${examHall[hallIndex]}`]: shuffledArray.slice(i, i + 25) });
+                let slicedArray =  shuffledArray.slice(i, i + 25);
+                // loop for a adding seatNumber prop
+                const propAddedArray = slicedArray.map((data,index)=>{
+                    data.seatNumber = index + 1;
+                    return data;
+                });
+                const filteredData=filterStudentsByDepartment(propAddedArray)
+                hallAllocatedStudentsData.push({ [`${examHall[hallIndex]}`]:filteredData});
                 hallIndex++;
             }
             // state variable for the alocated student data

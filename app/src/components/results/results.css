@@ -11,6 +11,10 @@ section{
     background-repeat: no-repeat;
     background-position: center;
 }
+table{
+    border: none;
+    position: relative;
+}
 .allocation{
     width: 100%;
     border-collapse: collapse;
@@ -28,7 +32,7 @@ section{
     border: 1px solid black;
     padding: 10px;
     text-align: left;
-    /* background-color: rgb(217, 217, 217); */
+    background-color: rgb(217, 217, 217);
 }
 .tdata{
     border: 1px solid black;
@@ -36,6 +40,14 @@ section{
     text-align: left;
     padding: 5px;
     text-align: center;
+}
+.sign{
+    position: absolute;
+    right: 2rem;
+    top: -3rem;
+}
+tfoot{
+    height: 5rem;
 }
 .thead{
     border: 1px solid black;
@@ -48,7 +60,7 @@ section{
 .thead-bg{
     border: 1px solid black;
     padding: 10px;
-    text-align: left;
+    text-align: center;
     /* background-color: rgb(217, 217, 217); */
 }
 .overflow-y{

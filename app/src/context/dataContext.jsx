@@ -30,8 +30,7 @@ export const DataProvider = ({ children }) => {
   const [examHall, setExamHall] = useState([]);
   const [allocatedData, setAllocatedData] = useState([]);
   const localostURL = "http://localhost:9000/";
-  const productionURL =
-    "https://ucer-backend-50021988656.development.catalystappsail.in/";
+  const productionURL = "https://ucer-backend-50021988656.development.catalystappsail.in/";
 
   useEffect(() => {
     // while loading the app getting the data from indexed db and store in state variable
@@ -181,10 +180,10 @@ export const DataProvider = ({ children }) => {
     // console.log(isAfterNoon,isForeNoon);
   };
 
-  const handleExamHallInput = (e) => {
+  const handleExamHallInput = (e) => {  
     try {
       const hallList = e.target.value.toUpperCase().split(",");
-      if (hallList.length == 1) {
+      if (hallList.length == 0) {
         alert("Seperate Hall By Comma Separated values!");
       } else {
         setExamHall(hallList);
