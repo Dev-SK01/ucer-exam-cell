@@ -76,7 +76,7 @@ app.post('/ExamDates', upload.array('ExamDates'), async (req, res) => {
         // removing the pdfParser_dataReady event
         pdfParser.removeAllListeners();
         //console.log(datesOfExam);
-        return res.status(200).json({"Exams":datesOfExam,"SubjectName":SubjectName});
+        return res.status(200).json({...datesOfExam,SubjectName});
       });
       await pdfParser.once('pdfParser_dataError',  (errData) => {
         console.log(errData);

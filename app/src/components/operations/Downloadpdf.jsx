@@ -14,7 +14,7 @@ const Downloadpdf = () => {
     const doc = new jsPDF();
     // condiditons for downloads
     if (examHall.length == 1) {
-      autoTable(doc, { html: `[id='${examHall[0]}']` });
+      autoTable(doc, { html: `[id='${examHall[0]}']`,useCss: true ,});
     } else if (examHall.length == 2) {
       autoTable(doc, { html: `[id='${examHall[0]}']`, useCss: true });
       doc.addPage();

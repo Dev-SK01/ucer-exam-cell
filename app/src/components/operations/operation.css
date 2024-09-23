@@ -202,3 +202,22 @@ canvas{
 .allocate:hover{
     background-color: goldenrod;
 }
+
+.device{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.device > img {
+   height: 250px;
+   width: 250px;
+}
+
+.device{
+    font-weight: bolder;
+    font-size: 2rem;
+}

@@ -17,7 +17,7 @@ const AllocatedStudents = () => {
                   <th colSpan={5} className="thead">ANNA UNIVERSITY CHENNAI</th>
                 </tr>
                 <tr>
-                <th colSpan={5} className="thead">THEORY EXAMININATION - 2024</th>
+                <th colSpan={5} className="thead">THEORY EXAMININATION - {new Date().getFullYear()}</th>
                 </tr>
                 <tr>
                 <th colSpan={3} className="thead">DATE : {date}</th>
@@ -45,7 +45,7 @@ const AllocatedStudents = () => {
                     <td colSpan={1} className="tdata">{data.registerNumber}</td>
                     <td colSpan={1} className="tdata">{`${data.firstName} ${decodeURI(data.lastName)}`}</td>
                     <td className="tdata">{data.exam}</td>
-                    <td className="tdata">{examStorage.SubjectName[data.exam]}</td>
+                    <td className="tdata" style={{fontSize:'12px'}}>{examStorage.SubjectName[data.exam]}</td>
                   </tr>
                   ))
                 ))}
@@ -57,8 +57,8 @@ const AllocatedStudents = () => {
                 <tr>
                   <th colSpan={4}>Total Number of Student Absent :</th>
                 </tr>
-                <tr className="sign">
-                  <th>Signature  </th>
+                <tr>
+                  <th colSpan={5} style={{textAlign:'right'}}>Signature Of The Cheif Superintendent</th>
                 </tr>
               </tfoot>
             </table>
