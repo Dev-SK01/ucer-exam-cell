@@ -30,7 +30,7 @@ const AllocatedStudents = () => {
                 </tr>
                 <tr style={{textAlign:'center'}}>
                   <th colSpan={1} className="thead-bg">SEAT NO</th>
-                  <th colSpan={1} className="thead-bg">REGISTERED NUMBER</th>
+                  <th colSpan={1} className="thead-bg">REGISTER NUMBER</th>
                   <th colSpan={1} className="thead-bg">NAME OF THE CANDIDATE</th>
                   <th colSpan={1} className="thead-bg">SUBJECT CODE</th>
                   <th colSpan={1} className="thead-bg">SUBJECT NAME</th>
@@ -41,6 +41,7 @@ const AllocatedStudents = () => {
                 {data[examHall[index]].map((student, index) => (
                   //console.log(student[index].derpartment);
                   student.map((data,index)=>(
+                  <>
                   <tr key={index}>
                     <td className="tdata" style={{fontWeight:'bolder'}}>{data.seatNumber}</td>
                     <td colSpan={1} className="tdata">{data.registerNumber}</td>
@@ -48,6 +49,7 @@ const AllocatedStudents = () => {
                     <td className="tdata">{data.exam}</td>
                     <td className="tdata" style={{fontSize:'12px'}}>{examStorage.SubjectName[data.exam]}</td>
                   </tr>
+                  </>
                   ))
                 ))}
               </tbody>
