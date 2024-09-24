@@ -32,7 +32,7 @@ async function constructStudentDataFromPDF(pdf) {
                 // this is for department
                 department = pdf.Pages[j].Texts[i + 1].R[0].T;
             } else if (pdf.Pages[j].Texts[i].R[0].T.lastIndexOf("Title") !== -1) {
-                // this is for index
+                // this is for getting index for get the students subjects
                 index = i + 1;
             }
         }
@@ -52,7 +52,7 @@ async function constructStudentDataFromPDF(pdf) {
             subjects: subjects,
         }
 
-        // TODO  console.log(individualStudentData);
+        //console.log(individualStudentData);
         // pushing the constructed student data into studentData
         studentData.push(individualStudentData);
         // console.log(pdf.Pages[j].Texts[index + numberOfSubjects].R[0].T);

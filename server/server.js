@@ -3,6 +3,7 @@ const PDFParser = require('pdf2json');
 const multer = require('multer');
 const { PDFDocument } = require('pdf-lib');
 const constructStudentDataFromPDF = require('./utils/extractStudentData.cjs');
+const constructSubjectName= require('./utils/SubjectNameForSubjectCode.cjs');
 const app = express();
 const constructExamDatesFromPDF = require('./utils/extractExamDates.cjs');
 // Set up multer for handling file uploads || stores data in the Buffer.
@@ -12,8 +13,8 @@ const upload = multer({storage: bufferStorage });
 //this is used to allows the given orgin to fetch data
 const cors = require('cors');
 const corsOptions = {
-  origin: 'http://localhost:5173',
-  methods: 'GET,POST,PUT,DELETE',
+  origin: 'https://ucer.web.app',
+  methods: 'GET,POST',
 };
 
 // Apply the CORS middleware with the options
@@ -70,10 +71,12 @@ app.post('/ExamDates', upload.array('ExamDates'), async (req, res) => {
       await pdfParser.once('pdfParser_dataReady', async (pdfData) => {
         // Process the PDF data to extract student details
         const datesOfExam = await constructExamDatesFromPDF(pdfData);
+        //SubjectNameForSubjectCode
+        const SubjectName=await constructSubjectName(pdfData);
         // removing the pdfParser_dataReady event
         pdfParser.removeAllListeners();
         //console.log(datesOfExam);
-        return res.status(200).json(datesOfExam);
+        return res.status(200).json({...datesOfExam,SubjectName});
       });
       await pdfParser.once('pdfParser_dataError',  (errData) => {
         console.log(errData);
@@ -92,8 +95,8 @@ app.post('/ExamDates', upload.array('ExamDates'), async (req, res) => {
 
 
 //api port for student detail data
-app.listen(process.env.X_ZOHO_CATALYST_LISTEN_PORT || 9000, () => {
-  console.log(`Server is running on port http://localhost:${process.env.X_ZOHO_CATALYST_LISTEN_PORT}`);
+app.listen(9000, () => {
+  console.log(`Server is running on port http://localhost:9000`);
 });
 
 

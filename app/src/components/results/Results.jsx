@@ -6,7 +6,7 @@ const Results = ({ resultStudentData }) => {
   return (
     <>
       <section className="container" id="resRef">
-        <p style={{ fontWeight: "bolder" }}>
+        <p style={{ fontWeight: "bolder", fontSize: "1.3rem", color: "green" }}>
           Total Students : {resultStudentData.length}
         </p>
         <section className="results-container" id="pdf-content">
@@ -16,13 +16,14 @@ const Results = ({ resultStudentData }) => {
             className="img-fluid  img-thumbnail"
             style={{ width: "100%", border: "none" }}
           />
-          <table border="1" id="content">
+          <table border="1" className="result">
             <thead style={{ position: "sticky", top: 0 }}>
               <tr>
-                <th>Register Number</th>
-                <th>Name</th>
-                <th>Department</th>
-                <th>Regulation</th>
+                <th className="th">Register Number</th>
+                <th className="th">Name</th>
+                <th className="th">Department</th>
+                <th className="th">Exam</th>
+                <th className="th">Regulation</th>
               </tr>
             </thead>
             <tbody>
@@ -30,30 +31,32 @@ const Results = ({ resultStudentData }) => {
               {resultStudentData.length ? (
                 resultStudentData.map((resultData) => (
                   <tr key={resultData.id}>
-                    <td>{resultData.registerNumber}</td>
-                    <td>{resultData.firstName + "  " + resultData.lastName}</td>
-                    <td>{resultData.department}</td>
-                    <td>{resultData.regulation}</td>
+                    <td className="td">{resultData.registerNumber}</td>
+                    <td className="td">
+                      {resultData.firstName +
+                        "  " +
+                        decodeURI(resultData.lastName)}
+                    </td>
+                    <td className="td">{resultData.department}</td>
+                    <td style={{ color: "blue" }} className="td">
+                      {resultData.exam}
+                    </td>
+                    <td className="td">{resultData.regulation}</td>
                   </tr>
                 ))
               ) : (
                 <tr key="001">
-                  <td>Students Not Found !</td>
-                  <td>Students Not Found !</td>
-                  <td>Students Not Found !</td>
-                  <td>Students Not Found !</td>
+                  <td className="td">Students Not Found !</td>
+                  <td className="td">Students Not Found !</td>
+                  <td className="td">Students Not Found !</td>
+                  <td className="td">Students Not Found !</td>
+                  <td className="td">Students Not Found !</td>
                 </tr>
               )}
-
             </tbody>
           </table>
         </section>
       </section>
-      <footer className="container">
-        <p>
-          Designed And Developed By Department Of Computer Science & Engineering
-        </p>
-      </footer>
     </>
   );
 };

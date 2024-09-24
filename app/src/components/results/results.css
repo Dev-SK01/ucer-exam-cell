@@ -3,24 +3,64 @@
 section{
     border-radius: 15px;
 }
-table {
+.result {
     width: 100%;
     border-collapse: collapse;
     margin-top: 1rem;
-    background-image: url('../../assets/au-logo.svg');
+    /* background-image: url('../../assets/au-logo.svg'); */
     background-repeat: no-repeat;
     background-position: center;
 }
-td {
+table{
+    border: none;
+    position: relative;
+}
+.allocation{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    /* background-image: url('../../assets/au-logo.svg'); */
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.td{
     border: 1px solid black;
     padding: 10px;
     text-align: left;
 }
-th{
+.th{
     border: 1px solid black;
     padding: 10px;
     text-align: left;
     background-color: rgb(217, 217, 217);
+}
+.tdata{
+    border: 1px solid black;
+    /* padding: 10px; */
+    text-align: left;
+    padding: 0px;
+    text-align: center;
+    font-size: 14px;
+}
+
+tfoot{
+    height: 5rem;
+}
+.thead{
+    border: 1px solid black;
+    /* padding: 10px; */
+    text-align: left;
+    /* background-color: rgb(217, 217, 217); */
+    text-align: center;
+    padding: 0px;
+    font-size: 14px;
+}
+.thead-bg{
+    border: 1px solid black;
+    /* padding: 10px; */
+    text-align: center;
+    font-size: 14px;
+    /* background-color: rgb(217, 217, 217); */
 }
 .overflow-y{
     overflow-y: scroll;
@@ -32,7 +72,7 @@ th{
     background-repeat: no-repeat;
     background-position: center;
     cursor: pointer;
-    
+    margin-bottom: 1rem;    
 }
 
 footer {
