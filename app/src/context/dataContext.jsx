@@ -142,7 +142,7 @@ export const DataProvider = ({ children }) => {
           // for display message
           setisUploading(true);
           // Make the POST request
-          const response = await fetch(`${localostURL}${route}`, {
+          const response = await fetch(`${productionURL}${route}`, {
             method: "POST",
             body: formData, // Send FormData with files
           });
@@ -191,19 +191,6 @@ export const DataProvider = ({ children }) => {
     } catch (err) {
       alert(err.message);
     }
-    // try {
-    //     const arr = [Student_CSE, Student_ECE, Student_EEE, Student_MECH, Student_civil];
-    //     const shuffled_student = Student_Sheduling(arr);
-    //     let j=0
-    //     let hall_num;
-    //     for(let i=0;i<shuffled_student.length;i=i+25){
-    //       hall_num=Halllist[j];
-    //       setExamHall(examHall=>[...examHall,{[hall_num]:shuffled_student.slice(i,i+25)}]);
-    //       j=j+1;
-    //     }
-    // } catch (err) {
-    //   alert(err.message);
-    // }
   };
   // logs for the reference
   // console.log(resultStudentData);
