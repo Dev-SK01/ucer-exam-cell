@@ -39,8 +39,9 @@ const AllocatedStudents = () => {
               <tbody key={index}>
                 {/* checking is students  have exam or not */}
                 {data[examHall[index]].map((student, index) => (
+                  //console.log(student[index].derpartment);
                   student.map((data,index)=>(
-                    <tr key={index}>
+                  <tr key={index}>
                     <td className="tdata" style={{fontWeight:'bolder'}}>{data.seatNumber}</td>
                     <td colSpan={1} className="tdata">{data.registerNumber}</td>
                     <td colSpan={1} className="tdata">{`${data.firstName} ${decodeURI(data.lastName)}`}</td>
