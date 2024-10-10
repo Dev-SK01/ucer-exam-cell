@@ -6,7 +6,7 @@ const Results = ({ resultStudentData }) => {
   return (
     <>
       <section className="container" id="resRef">
-        <p style={{ fontWeight: "bolder",fontSize:'1.3rem',color:'green'}}>
+        <p style={{ fontWeight: "bolder", fontSize: "1.3rem", color: "green" }}>
           Total Students : {resultStudentData.length}
         </p>
         <section className="results-container" id="pdf-content">
@@ -32,9 +32,15 @@ const Results = ({ resultStudentData }) => {
                 resultStudentData.map((resultData) => (
                   <tr key={resultData.id}>
                     <td className="td">{resultData.registerNumber}</td>
-                    <td className="td">{resultData.firstName + "  " + decodeURI(resultData.lastName)}</td>
+                    <td className="td">
+                      {resultData.firstName +
+                        "  " +
+                        decodeURI(resultData.lastName)}
+                    </td>
                     <td className="td">{resultData.department}</td>
-                    <td style={{color:'blue'}} className="td">{resultData.exam}</td>
+                    <td style={{ color: "blue" }} className="td">
+                      {resultData.exam}
+                    </td>
                     <td className="td">{resultData.regulation}</td>
                   </tr>
                 ))
@@ -47,7 +53,6 @@ const Results = ({ resultStudentData }) => {
                   <td className="td">Students Not Found !</td>
                 </tr>
               )}
-
             </tbody>
           </table>
         </section>
