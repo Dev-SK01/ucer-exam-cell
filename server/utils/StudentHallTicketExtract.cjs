@@ -1,7 +1,7 @@
 async function StudentHallTicketExtract(pdf) {
     const StudentsDetails = [];
     let j;
-    for (j = 0; j < pdf.Pages.length; j=j+2   ) {
+    for (j = 0; j <pdf.Pages.length; j=j+2   ) {
         let registerNumber=0;
         let firstName;
         let lastName;
@@ -43,16 +43,21 @@ async function StudentHallTicketExtract(pdf) {
             if( ExamcountInHallTicket > 0 ){
                 if( pdf.Pages[j].Texts[i].R[0].T === 'Title' ){
                     
-                    if( ExamcountInHallTicket >= 15 ){
+                    if( Number(ExamcountInHallTicket) > 15 ){
                         SubjectCode=i+21;
                         SetlimitForCodeAtRightColumn = 15;
-                    }else{
+                    }else if( Number(ExamcountInHallTicket) === 15 ){
+                        SubjectCode=i+21;
+                        SetlimitForCodeAtRightColumn = 15;
+                        OnePersonCompleted=true;
+                    }
+                    else{
                         SubjectCode=i+ Number(ExamcountInHallTicket)+6;
-                        SetlimitForCodeAtRightColumn = ExamcountInHallTicket
+                        SetlimitForCodeAtRightColumn = Number(ExamcountInHallTicket)
                         OnePersonCompleted=true;
                     }
                     for( let i = SubjectCode; i < SubjectCode + Number(SetlimitForCodeAtRightColumn); i++ ){
-                        //console.log(pdf.Pages[j].Texts[i].R[0].T);
+                        console.log(pdf.Pages[j].Texts[i].R[0].T);
                         subjects.push(pdf.Pages[j].Texts[i].R[0].T);
                         SetPosition = i +   1
                     }  
@@ -65,10 +70,15 @@ async function StudentHallTicketExtract(pdf) {
             if( ExamcountInHallTicket > 0 ){
                 if(secondColunm){
                     if( pdf.Pages[j].Texts[i].R[0].T === '01' || pdf.Pages[j].Texts[i].R[0].T === '02' || pdf.Pages[j].Texts[i].R[0].T === '03' || pdf.Pages[j].Texts[i].R[0].T === '04' || pdf.Pages[j].Texts[i].R[0].T === '05' || pdf.Pages[j].Texts[i].R[0].T === '06' || pdf.Pages[j].Texts[i].R[0].T === '07' || pdf.Pages[j].Texts[i].R[0].T === '08' ){
-                        if( ExamcountInHallTicket >= 30 ){
+                        if( ExamcountInHallTicket > 30 ){
                             SetlimitForCodeAtLeftColumn = 15;
-                        }else{
+                        }else if( ExamcountInHallTicket === 30 ){
+                            SetlimitForCodeAtLeftColumn = 15;
+                            OnePersonCompleted=true;
+                        }
+                        else{
                             SetlimitForCodeAtLeftColumn=ExamcountInHallTicket - 15;
+                            OnePersonCompleted=true;
                         }
                         SubjectCode=i+SetlimitForCodeAtLeftColumn;
                         for( let i = SubjectCode; i < SubjectCode+SetlimitForCodeAtLeftColumn; i++ ){
@@ -79,6 +89,8 @@ async function StudentHallTicketExtract(pdf) {
                         let GetDataFromSheetTwo=false;
                         i=0;
                         if(pdf.Pages[j+2].Texts[23].R[0].T === registerNumber ){
+                            console.log("sk");
+                            
                             while(!GetDataFromSheetTwo){
                                 if( pdf.Pages[j+2].Texts[i].R[0].T === 'Title' ){
                                     if(ExamcountInHallTicket >= 30 && ExamcountInHallTicket <= 45){
@@ -99,12 +111,9 @@ async function StudentHallTicketExtract(pdf) {
                             }
                             j=j+2;
                         }
-                        
-                        OnePersonCompleted=true
                     }
+                    OnePersonCompleted=true;
                 }
-                
-                
             }
             i=i+1
             
