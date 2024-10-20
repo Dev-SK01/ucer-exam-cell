@@ -28,6 +28,9 @@ async function StudentHallTicketExtract(pdf) {
             if(pdf.Pages[j].Texts[i].R[0].T==='Name'){
                 firstName=pdf.Pages[j].Texts[i+1].R[0].T;
                 lastName=pdf.Pages[j].Texts[i+2].R[0].T;
+                if(lastName.includes("%")){
+                    lastName=lastName.split("")[0];
+                }
             }
             if(pdf.Pages[j].Texts[i].R[0].T==='Branch'){
                 department=pdf.Pages[j].Texts[i+2].R[0].T;
@@ -50,6 +53,7 @@ async function StudentHallTicketExtract(pdf) {
                         OnePersonCompleted=true;
                     }
                     else{
+                        
                         SubjectCode=i+ Number(ExamcountInHallTicket)+6;
                         SetlimitForCodeAtRightColumn = Number(ExamcountInHallTicket)
                         OnePersonCompleted=true;
