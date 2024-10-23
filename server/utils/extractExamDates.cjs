@@ -6,10 +6,13 @@ async function constructExamDatesFromPDF(pdf) {
     //Object for Afternoon session exams with A.N key
     let afternoon_exam={};
     let i, j;
-    for (j = 0; j <pdf.Pages.length; j++) {
+    for (j = 2; j <3; j++) {
         //Count variable to getting number of exam from each pdf page
+        
+        
         let count=0;
         for (i = 0; i <= pdf.Pages[j].Texts.length - 1; i++) {
+            //console.log(i,pdf.Pages[j].Texts[i].R[0].T);
             if(pdf.Pages[j].Texts[i].R[0].T==="Branch%20Name"){
                 i=i+2;
                 //Getting Count
@@ -23,14 +26,17 @@ async function constructExamDatesFromPDF(pdf) {
                 let init=i+count+1;
                 let total=i+count+count;
                 let date=i+count+count+1;
-                let session=i+count+count+count+3;
+                let session=i+count+count+count+4;
                 for(let sub=init;sub<=total;sub++){
                     let arr=[];
                     let sorted_array=[];
                     //Conditional statement for set the values of A.N exams in afternoon object
                     if(pdf.Pages[j].Texts[session].R[0].T==='A.N.'){
+
                         let date_data=pdf.Pages[j].Texts[date].R[0].T;
                         if(afternoon_exam[date_data]){
+                            //console.log("sk",pdf.Pages[j].Texts[date].R[0].T);
+                            
                             afternoon_exam[date_data]=afternoon_exam[date_data]+","+pdf.Pages[j].Texts[sub].R[0].T
                             arr=afternoon_exam[date_data].split(",");
                         }else {
@@ -47,11 +53,11 @@ async function constructExamDatesFromPDF(pdf) {
                         let date_data=pdf.Pages[j].Texts[date].R[0].T;
                         let k=0;
                         if(Forenoon_exam[date_data]){
-                            Forenoon_exam[date_data]=Forenoon_exam[date_data]+","+pdf.Pages[j].Texts[sub+k].R[0].T
+                            Forenoon_exam[date_data]=Forenoon_exam[date_data]+","+pdf.Pages[j].Texts[sub].R[0].T
                             arr=Forenoon_exam[date_data].split(",");
                         }else {
                             //eliminating the dublicates in array
-                            arr.push(pdf.Pages[j].Texts[sub+k].R[0].T)                        
+                            arr.push(pdf.Pages[j].Texts[sub].R[0].T)                        
                         }
                         sorted_array = Array.from(new Set(arr));
                         Forenoon_exam[date_data]=sorted_array ;

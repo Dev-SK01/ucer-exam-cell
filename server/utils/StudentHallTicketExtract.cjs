@@ -1,3 +1,5 @@
+//Student data extration function from the Hall Ticket
+
 async function StudentHallTicketExtract(pdf) {
     const StudentsDetails = [];
     let j;
@@ -53,7 +55,7 @@ async function StudentHallTicketExtract(pdf) {
                         OnePersonCompleted=true;
                     }
                     else{
-                        
+
                         SubjectCode=i+ Number(ExamcountInHallTicket)+6;
                         SetlimitForCodeAtRightColumn = Number(ExamcountInHallTicket)
                         OnePersonCompleted=true;
@@ -117,6 +119,7 @@ async function StudentHallTicketExtract(pdf) {
                                             i = i + SetPosition;
                                          }
                                     }
+                                    
                                     if(SheetTwoRightColumn){
                                         if( pdf.Pages[j].Texts[i].R[0].T === '01' || pdf.Pages[j].Texts[i].R[0].T === '02' || pdf.Pages[j].Texts[i].R[0].T === '03' || pdf.Pages[j].Texts[i].R[0].T === '04' || pdf.Pages[j].Texts[i].R[0].T === '05' || pdf.Pages[j].Texts[i].R[0].T === '06' || pdf.Pages[j].Texts[i].R[0].T === '07' || pdf.Pages[j].Texts[i].R[0].T === '08' ){
                                             if( ExamcountInHallTicket >= 46){
@@ -156,8 +159,8 @@ async function StudentHallTicketExtract(pdf) {
         }
         const StudentExams={
             registerNumber:registerNumber,
-            firstname:firstName,
-            lastname:lastName,
+            firstName:firstName,
+            lastName:lastName,
             department:department,
             subjects:subjects
         }
