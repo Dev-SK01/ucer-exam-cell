@@ -143,7 +143,7 @@ export const DataProvider = ({ children }) => {
           // for display message
           setisUploading(true);
           // Make the POST request
-          const response = await fetch(`${localostURL}${route}`, {
+          const response = await fetch(`${productionURL}${route}`, {
             method: "POST",
             body: formData, // Send FormData with files
           });

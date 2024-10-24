@@ -23,7 +23,7 @@ const Results = ({ resultStudentData }) => {
                 <th className="th">Name</th>
                 <th className="th">Department</th>
                 <th className="th">Exam</th>
-                <th className="th">Regulation</th>
+                {/* <th className="th">Regulation</th> */}
               </tr>
             </thead>
             <tbody>
@@ -39,9 +39,9 @@ const Results = ({ resultStudentData }) => {
                     </td>
                     <td className="td">{resultData.department}</td>
                     <td style={{ color: "blue" }} className="td">
-                      {resultData.exam}
+                      {resultData?.exam}
                     </td>
-                    <td className="td">{resultData.regulation}</td>
+                    {/* <td className="td">{resultData.regulation}</td> */}
                   </tr>
                 ))
               ) : (
@@ -50,7 +50,7 @@ const Results = ({ resultStudentData }) => {
                   <td className="td">Students Not Found !</td>
                   <td className="td">Students Not Found !</td>
                   <td className="td">Students Not Found !</td>
-                  <td className="td">Students Not Found !</td>
+                  {/* <td className="td">Students Not Found !</td> */}
                 </tr>
               )}
             </tbody>
