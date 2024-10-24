@@ -72,6 +72,7 @@ export const DataProvider = ({ children }) => {
 
   const searchExamStudents = (isForeNoon, isAfterNoon) => {
     try {
+      console.log(isAfterNoon,isForeNoon);
       //filtering the exam students
       const __mappedStudentData = studentStorage.filter((data) => {
         const __subjectsArr = data.subjects;
@@ -95,6 +96,7 @@ export const DataProvider = ({ children }) => {
           }
           //filtering total exam students
           else {
+            
             if (
               examStorage?.foreNoon[date].includes(__subjectsArr[i]) ||
               examStorage?.afterNoon[date].includes(__subjectsArr[i])
@@ -106,7 +108,6 @@ export const DataProvider = ({ children }) => {
           }
         }
       });
-      // setting the examed students for results
       setResultStudentData(__mappedStudentData);
     } catch (err) {
       console.log(err.message);
@@ -142,7 +143,7 @@ export const DataProvider = ({ children }) => {
           // for display message
           setisUploading(true);
           // Make the POST request
-          const response = await fetch(`${productionURL}${route}`, {
+          const response = await fetch(`${localostURL}${route}`, {
             method: "POST",
             body: formData, // Send FormData with files
           });
@@ -177,7 +178,7 @@ export const DataProvider = ({ children }) => {
     } else if (e.target.nextElementSibling.innerText == "A.N") {
       setAfterNoon(e.target.checked);
     }
-    // console.log(isAfterNoon,isForeNoon);
+
   };
 
   const handleExamHallInput = (e) => {  

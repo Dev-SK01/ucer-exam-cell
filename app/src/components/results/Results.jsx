@@ -35,7 +35,7 @@ const Results = ({ resultStudentData }) => {
                     <td className="td">
                       {resultData.firstName +
                         "  " +
-                        decodeURI(resultData.lastName)}
+                        resultData.lastName}
                     </td>
                     <td className="td">{resultData.department}</td>
                     <td style={{ color: "blue" }} className="td">

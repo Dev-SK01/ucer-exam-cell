@@ -2,7 +2,9 @@ const express = require('express');
 const PDFParser = require('pdf2json');
 const multer = require('multer');
 const { PDFDocument } = require('pdf-lib');
-const constructStudentDataFromPDF = require('./utils/extractStudentData.cjs');
+//const constructStudentDataFromPDF = require('./utils/extractStudentData.cjs');
+//importing HallTicket Extraction function
+const constructStudentDataFromHallTicket=require('./utils/StudentHallTicketExtract.cjs')
 const constructSubjectName= require('./utils/SubjectNameForSubjectCode.cjs');
 const app = express();
 const constructExamDatesFromPDF = require('./utils/extractExamDates.cjs');
@@ -38,7 +40,7 @@ app.post('/studentData', upload.array('studentData'), async (req, res) => {
       //this read the merged pdf data and get the student data as per the imported function
       await pdfParser.once('pdfParser_dataReady', async (pdfData) => {
         // Process the PDF data to extract student details
-        const dataOfStudent = await constructStudentDataFromPDF(pdfData);
+        const dataOfStudent = await constructStudentDataFromHallTicket(pdfData);
         // removing the pdfParser_dataReady event
         pdfParser.removeAllListeners();
         return res.status(200).json(dataOfStudent);
