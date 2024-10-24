@@ -22,23 +22,29 @@ async function StudentHallTicketExtract(pdf) {
         let GoToSheetTwo=false;
         let GetDataFromSheetTwo=false;
         let SheetTwoRightColumn=false;
+        let TextData;
+        let SemesterNum;
+        let PageTwoReg;
+        let PageTwoTitle;
+        let SemesterNum2;
         while (!OnePersonCompleted) {
             //console.log(i,pdf.Pages[j].Texts[i].R[0].T)
-            if(pdf.Pages[j].Texts[i].R[0].T==='Number'){
+            TextData=pdf.Pages[j].Texts[i].R[0].T
+            if(TextData==='Number'){
                 registerNumber=pdf.Pages[j].Texts[i+1].R[0].T
             }
-            if(pdf.Pages[j].Texts[i].R[0].T==='Name'){
+            if(TextData==='Name'){
                 firstName=pdf.Pages[j].Texts[i+1].R[0].T;
                 lastName=pdf.Pages[j].Texts[i+2].R[0].T;
                 if(lastName.includes("%")){
                     lastName=lastName.split("")[0];
                 }
             }
-            if(pdf.Pages[j].Texts[i].R[0].T==='Branch'){
+            if(TextData==='Branch'){
                 department=pdf.Pages[j].Texts[i+2].R[0].T;
             }
             //To getting a no.of exams count per hall ticket
-            if (pdf.Pages[j].Texts[i].R[0].T==='Registered%3A' && ExamcountInHallTicket==0){
+            if (TextData==='Registered%3A' && ExamcountInHallTicket==0){
                 ExamcountInHallTicket=pdf.Pages[j].Texts[i+1].R[0].T;
                 i=0;   
             }
@@ -73,7 +79,8 @@ async function StudentHallTicketExtract(pdf) {
             //Condition for getting a subject code at the leftside column
             if( ExamcountInHallTicket > 0 ){
                 if(secondColumn){
-                    if( pdf.Pages[j].Texts[i].R[0].T === '01' || pdf.Pages[j].Texts[i].R[0].T === '02' || pdf.Pages[j].Texts[i].R[0].T === '03' || pdf.Pages[j].Texts[i].R[0].T === '04' || pdf.Pages[j].Texts[i].R[0].T === '05' || pdf.Pages[j].Texts[i].R[0].T === '06' || pdf.Pages[j].Texts[i].R[0].T === '07' || pdf.Pages[j].Texts[i].R[0].T === '08' ){
+                    SemesterNum=pdf.Pages[j].Texts[i].R[0].T;
+                    if( SemesterNum === '01' || SemesterNum === '02' || SemesterNum === '03' || SemesterNum === '04' || SemesterNum === '05' || SemesterNum === '06' || SemesterNum === '07' || SemesterNum === '08' ){
                         if( ExamcountInHallTicket > 30){
                             SetlimitForCodeAtLeftColumn = 15;
                             GoToSheetTwo=true;
@@ -97,9 +104,11 @@ async function StudentHallTicketExtract(pdf) {
                         i=0;
                         //Condition for checking the next page wether a single person hold a additional sheet in hall ticket
                         if(GoToSheetTwo){
-                            if(pdf.Pages[j+2].Texts[23].R[0].T === registerNumber ){
+                            PageTwoReg=pdf.Pages[j+2].Texts[23].R[0].T;
+                            if( PageTwoReg === registerNumber ){
                                 while(!GetDataFromSheetTwo){
-                                    if( pdf.Pages[j+2].Texts[i].R[0].T === 'Title' ){
+                                    PageTwoTitle=pdf.Pages[j+2].Texts[i].R[0].T
+                                    if( PageTwoTitle === 'Title' ){
                                         if(ExamcountInHallTicket >= 30 && ExamcountInHallTicket <= 45){
                                             SubjectCode=i+Number(ExamcountInHallTicket)-30+6;
                                             SetlimitForCodeAtRightColumn = ExamcountInHallTicket-30;
@@ -121,7 +130,8 @@ async function StudentHallTicketExtract(pdf) {
                                     }
                                     
                                     if(SheetTwoRightColumn){
-                                        if( pdf.Pages[j].Texts[i].R[0].T === '01' || pdf.Pages[j].Texts[i].R[0].T === '02' || pdf.Pages[j].Texts[i].R[0].T === '03' || pdf.Pages[j].Texts[i].R[0].T === '04' || pdf.Pages[j].Texts[i].R[0].T === '05' || pdf.Pages[j].Texts[i].R[0].T === '06' || pdf.Pages[j].Texts[i].R[0].T === '07' || pdf.Pages[j].Texts[i].R[0].T === '08' ){
+                                        SemesterNum2=pdf.Pages[j].Texts[i].R[0].T
+                                        if( SemesterNum2 === '01' || SemesterNum2 === '02' || SemesterNum2 === '03' || SemesterNum2 === '04' || SemesterNum2 === '05' || SemesterNum2 === '06' || SemesterNum2 === '07' || SemesterNum2 === '08' ){
                                             if( ExamcountInHallTicket >= 46){
                                                 SetlimitForCodeAtLeftColumn = 15;
                                                 OnePersonCompleted=true;
