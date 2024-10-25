@@ -21,7 +21,11 @@ const corsOptions = {
 
 // Apply the CORS middleware with the options
 app.use(cors());
+// Increase memory limit for JSON payloads (default is 100kb)
+app.use(express.json({ limit: '50mb' }));
 
+// Increase memory limit for URL-encoded payloads
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 // home route for testing
 app.get('/' ,(req,res) => {
   res.status(200).json({Message : "You Hit A Home URL !"})
@@ -97,7 +101,8 @@ app.post('/ExamDates', upload.array('ExamDates'), async (req, res) => {
 
 
 //api port for student detail data
-app.listen(9000, () => {
+const port=process.env.PORT || 9000
+app.listen(port, () => {
   console.log(`Server is running on port http://localhost:9000`);
 });
 
