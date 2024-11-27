@@ -14,24 +14,26 @@ const upload = multer({storage: bufferStorage });
 
 //this is used to allows the given orgin to fetch data
 const cors = require('cors');
+const orgins=['https://ucer.web.app','http://localhost:5173']
 const corsOptions = {
-  origin: 'https://ucer.web.app',
+  origin: orgins,
   methods: 'GET,POST',
 };
-
+app.use(cors(corsOptions));
 // Apply the CORS middleware with the options
-app.use(cors());
-// Increase memory limit for JSON payloads (default is 100kb)
-app.use(express.json({ limit: '50mb' }));
-
-// Increase memory limit for URL-encoded payloads
-app.use(express.urlencoded({ limit: '50mb', extended: true }));
-// home route for testing
 app.get('/' ,(req,res) => {
   res.status(200).json({Message : "You Hit A Home URL !"})
 });
 
-app.post('/studentData', upload.array('studentData'), async (req, res) => {
+
+// Preflight request handling
+app.options('/studentData', cors(corsOptions), (req, res) => {
+  res.sendStatus(200); // Respond to OPTIONS preflight with OK status
+});
+
+
+
+app.post('/studentData', upload.array('studentData'), cors(corsOptions), async (req, res) => {
   if (!req.files||req.files.length===0) {
     return res.status(400).json({ message: 'No files were uploaded.' });
   } else {
@@ -102,11 +104,11 @@ app.post('/ExamDates', upload.array('ExamDates'), async (req, res) => {
 
 //api port for student detail data
 const port=process.env.PORT || 9000
-app.listen(port, () => {
+const server=app.listen(port, () => {
   console.log(`Server is running on port http://localhost:9000`);
 });
 
-
+server.setTimeout(10 * 60 * 1000);
 
 
 
