@@ -26,7 +26,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // enabling options for preflight requests
-app.options('*', cors(corsOptions))
+app.options('*', cors(corsOptions));
 
 // Increase memory limit for URL-encoded payloads
 //app.use(express.urlencoded({ limit: '50mb', extended: true }));
@@ -66,7 +66,6 @@ app.post('/studentData', upload.array('studentData'), async (req, res) => {
     };
   }
 });
-
 
 app.post('/ExamDates', upload.array('ExamDates'), async (req, res) => {
   if (!req.files||req.files.length===0) {
