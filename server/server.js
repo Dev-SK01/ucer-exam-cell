@@ -16,16 +16,21 @@ const upload = multer({storage: bufferStorage });
 const cors = require('cors');
 const corsOptions = {
   origin: 'https://ucer.web.app',
-  methods: 'GET,POST',
+  methods: 'GET,POST,OPTIONS',
+  preflightContinue: true,
 };
 
 // Apply the CORS middleware with the options
-app.use(cors());
+app.use(cors(corsOptions));
 // Increase memory limit for JSON payloads (default is 100kb)
 app.use(express.json());
 
+// enabling options for preflight requests
+app.options('*', cors(corsOptions))
+
 // Increase memory limit for URL-encoded payloads
 //app.use(express.urlencoded({ limit: '50mb', extended: true }));
+
 // home route for testing
 app.get('/' ,(req,res) => {
   res.status(200).json({Message : "You Hit A Home URL !"})
@@ -103,7 +108,7 @@ app.post('/ExamDates', upload.array('ExamDates'), async (req, res) => {
 //api port for student detail data
 const port=process.env.PORT || 9000
 app.listen(port, () => {
-  console.log(`Server is running on port http://localhost:9000`);
+  console.log(`Server is running on PORT:9000`);
 });
 
 
