@@ -146,6 +146,7 @@ export const DataProvider = ({ children }) => {
           const response = await fetch(`${localostURL}${route}`, {
             method: "POST",
             body: formData, // Send FormData with files
+            timeout: 10 * 60 * 1000 ,
           });
           const resData = await response.json();
           console.log(response.status);
