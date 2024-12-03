@@ -1,8 +1,8 @@
 import React, { createContext, useEffect, useState } from "react";
 import { MyLocalStorage } from "../db/indexedDB";
 import allocateExamHalls from "../utils/allocateExamHalls";
-const DataContext = createContext({});
 
+const DataContext = createContext({});
 export const DataProvider = ({ children }) => {
   const [date, setDate] = useState("");
   const studentLocalStorage = new MyLocalStorage();
@@ -30,7 +30,9 @@ export const DataProvider = ({ children }) => {
   const [examHall, setExamHall] = useState([]);
   const [allocatedData, setAllocatedData] = useState([]);
   const localostURL = "http://localhost:9000/";
-  const productionURL = "https://ucer-backend-50021988656.development.catalystappsail.in/";
+  const productionURL =
+    "https://ucer-backend-50021988656.development.catalystappsail.in/";
+  const MAX_FILE_LENGTH = 10;
 
   useEffect(() => {
     // while loading the app getting the data from indexed db and store in state variable
@@ -72,7 +74,7 @@ export const DataProvider = ({ children }) => {
 
   const searchExamStudents = (isForeNoon, isAfterNoon) => {
     try {
-      console.log(isAfterNoon,isForeNoon);
+      console.log(isAfterNoon, isForeNoon);
       //filtering the exam students
       const __mappedStudentData = studentStorage.filter((data) => {
         const __subjectsArr = data.subjects;
@@ -96,7 +98,6 @@ export const DataProvider = ({ children }) => {
           }
           //filtering total exam students
           else {
-            
             if (
               examStorage?.foreNoon[date].includes(__subjectsArr[i]) ||
               examStorage?.afterNoon[date].includes(__subjectsArr[i])
@@ -140,27 +141,42 @@ export const DataProvider = ({ children }) => {
           alert("No Files Were Selected !");
           setisUploading(false);
         } else {
-          // for display message
-          setisUploading(true);
-          // Make the POST request
-          const response = await fetch(`${productionURL}${route}`, {
-            method: "POST",
-            body: formData, // Send FormData with files
-          });
-          const resData = await response.json();
-          console.log(response.status);
-          // checking if any error from server
-          studentLocalStorage.setItem(route, resData);
-          // getting the data from the indexedDB
-          studentLocalStorage.get("studentData").then((data) => {
-            setStudentstorage(data);
-          });
-          examDateLocalStorage.get("ExamDates").then((data) => {
-            setExamStorage(data);
-          });
-          setisUploading(false);
-          setFile([]);
-          console.log("Response Stored In IndexDB");
+          // limiting the file upload size
+          if (files.length <= MAX_FILE_LENGTH) {
+            // for display message
+            setisUploading(true);
+            // Make the POST request
+            const response = await fetch(`${productionURL}${route}`, {
+              method: "POST",
+              body: formData, // Send FormData with files
+            });
+            const resData = await response.json();
+            console.log(response.status);
+            // getting previous data from indexedDB
+            const localStorageData = await studentLocalStorage.get(route);
+            console.log(localStorageData);
+            if (localStorageData) {
+              studentLocalStorage.setItem(route, [
+                ...localStorageData,
+                ...resData,
+              ]);
+            } else {
+              studentLocalStorage.setItem(route, resData);
+            }
+
+            // getting the data from the indexedDB
+            studentLocalStorage.get("studentData").then((data) => {
+              setStudentstorage(data);
+            });
+            examDateLocalStorage.get("ExamDates").then((data) => {
+              setExamStorage(data);
+            });
+            setisUploading(false);
+            setFile([]);
+            console.log("Response Stored In IndexDB");
+          } else {
+            alert(`Select ${MAX_FILE_LENGTH} Files`);
+          }
         }
       } catch (error) {
         console.error("Error:", error);
@@ -178,10 +194,9 @@ export const DataProvider = ({ children }) => {
     } else if (e.target.nextElementSibling.innerText == "A.N") {
       setAfterNoon(e.target.checked);
     }
-
   };
 
-  const handleExamHallInput = (e) => {  
+  const handleExamHallInput = (e) => {
     try {
       const hallList = e.target.value.toUpperCase().split(",");
       if (hallList.length == 0) {
@@ -200,7 +215,6 @@ export const DataProvider = ({ children }) => {
   //console.log("student Data :", studentStorage);
   // console.log("ExamDates Data :", examStorage);
   //console.log(allocatedData);
-  
 
   return (
     <DataContext.Provider

@@ -16,9 +16,10 @@ const upload = multer({storage: bufferStorage });
 // this is used to allows the given orgin to fetch data
 const cors = require('cors');
 const corsOptions = {
-  origin: ['https://ucer.web.app',' http://localhost:5173'],
+  origin: ['https://ucer.web.app','http://localhost:5173'],
   methods: 'GET,POST,OPTIONS',
   preflightContinue: true,
+  
 };
 
 // Apply the CORS middleware with the options
@@ -26,28 +27,22 @@ app.use(cors(corsOptions));
 
 app.use(express.json());
 
-// adding the timeout function  to control the request timeout error
-// app.use(timeout('900000ms'))
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "http://localhost:5173"); 
+//   next();
+// });
+
 // enabling options for preflight requests
 app.options('*', cors(corsOptions));
 
-// Increase memory limit for URL-encoded payloads
-//app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // home route for testing
 app.get('/' ,(req,res) => {
-  // if the request timedout sending the error
-  // if(req.timedout) {
-  //    return res.status(408).json({error:"request timeout in 15min"});
-  // }else{}
     return res.status(200).json({Message : "You Hit A Home URL !"});
 });
 
 app.post('/studentData',upload.array('studentData'), async (req, res) => {
-  
-  // if the request timedout sending the error
-  // if(req.timedout) return res.status(408).json({error:"request timeout in 15min"});
-  
+    
   // checking the req has the form data
   if (!req.files||req.files.length===0) {
     return res.status(400).json({ message: 'No files were uploaded.' });
